@@ -1,80 +1,65 @@
-const questionContainer = document.getElementById('question-container');
-const answerButtons = document.getElementById('answer-buttons');
+const cardContainer = document.getElementById('card-container');
 const nextButton = document.getElementById('next-btn');
 
 let currentQuestionIndex = 0;
-let score = 0;
 
 function startQuiz() {
   currentQuestionIndex = 0;
-  score = 0;
-  nextButton.innerText = "Próxima Pergunta ➡️";
+  nextButton.style.display = 'none';
   showQuestion();
 }
 
 function showQuestion() {
-  resetState();
-  let currentQuestion = perguntas[currentQuestionIndex];
-  questionContainer.innerText = currentQuestion.pergunta;
+  cardContainer.innerHTML = '';
+  const current = perguntas[currentQuestionIndex];
 
-  currentQuestion.respostas.forEach(resposta => {
-    const button = document.createElement('button');
-    button.innerText = resposta.texto;
-    button.classList.add('btn');
-    if (resposta.correta) {
-      button.dataset.correct = resposta.correta;
-    }
-    button.addEventListener('click', selectAnswer);
-    answerButtons.appendChild(button);
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const cardInner = document.createElement('div');
+  cardInner.classList.add('card-inner');
+
+  const cardFront = document.createElement('div');
+  cardFront.classList.add('card-front');
+  cardFront.innerHTML = `<h2>${current.pergunta}</h2>`;
+
+  const answersDiv = document.createElement('div');
+  answersDiv.classList.add('answers');
+  current.respostas.forEach(resposta => {
+    const btn = document.createElement('button');
+    btn.classList.add('answer-btn');
+    btn.innerText = resposta.texto;
+    btn.addEventListener('click', () => selectAnswer(resposta, card));
+    answersDiv.appendChild(btn);
   });
+  cardFront.appendChild(answersDiv);
+
+  const cardBack = document.createElement('div');
+  cardBack.classList.add('card-back');
+  cardBack.innerHTML = `<h3>Resposta Correta: ${current.respostas.find(r=>r.correta).texto}</h3>`;
+
+  cardInner.appendChild(cardFront);
+  cardInner.appendChild(cardBack);
+  card.appendChild(cardInner);
+  cardContainer.appendChild(card);
 }
 
-function resetState() {
-  nextButton.style.display = 'none';
-  while (answerButtons.firstChild) {
-    answerButtons.removeChild(answerButtons.firstChild);
-  }
-}
-
-function selectAnswer(e) {
-  const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct === "true";
-  if (correct) score++;
-  Array.from(answerButtons.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct === "true");
-  });
+function selectAnswer(resposta, card) {
+  card.classList.add('flipped');
   nextButton.style.display = 'block';
-}
-
-function setStatusClass(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add('correct');
-  } else {
-    element.classList.add('wrong');
-  }
-}
-
-function clearStatusClass(element) {
-  element.classList.remove('correct');
-  element.classList.remove('wrong');
 }
 
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   if (currentQuestionIndex < perguntas.length) {
     showQuestion();
+    nextButton.style.display = 'none';
   } else {
-    showScore();
+    cardContainer.innerHTML = `<h2>🎉 Quiz Finalizado! 🎉</h2>`;
+    nextButton.innerText = "Recomeçar";
+    nextButton.onclick = startQuiz;
+    nextButton.style.display = 'block';
   }
 });
-
-function showScore() {
-  resetState();
-  questionContainer.innerText = `🎉 Você acertou ${score} de ${perguntas.length} perguntas! 🎉`;
-  nextButton.innerText = "Jogar Novamente 🔄";
-  nextButton.style.display = 'block';
-  nextButton.addEventListener('click', startQuiz);
-}
 
 startQuiz();
