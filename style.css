@@ -1,111 +1,85 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f3e8ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff0f6;
+  color: #5a0033;
+  text-align: center;
+  padding: 30px;
   margin: 0;
 }
 
-.quiz-container {
-  text-align: center;
-}
-
 h1 {
-  margin-bottom: 30px;
-  color: #7d5fff;
+  font-size: 2.8em;
+  color: #ff4d94;
+  margin-bottom: 15px;
 }
 
-.card {
-  width: 320px;
-  height: 220px;
-  perspective: 1000px;
-  margin: 0 auto 20px auto;
+.score {
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #a04d6e;
 }
 
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s ease-in-out;
-  transform-style: preserve-3d;
-  border-radius: 20px;
-}
-
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  font-size: 1em;
-  text-align: center;
-}
-
-.card-front {
-  background-color: #ffccd5; /* rosa pastel */
-}
-
-.card-back {
-  background-color: #cce7ff; /* azul pastel */
-  transform: rotateY(180deg);
-}
-
-.answers {
-  display: flex;
-  flex-direction: column;
-  margin-top: 15px;
-  width: 100%;
-}
-
-.answer-btn {
-  padding: 8px;
-  margin: 5px 0;
-  border: none;
+.flashcard {
+  background-color: #ffe6f0;
+  border: 2px solid #ff4d94;
   border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-  transition: all 0.3s ease;
-  background-color: #fff7e6; /* creme pastel */
+  max-width: 500px;
+  margin: 0 auto 30px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(255, 77, 148, 0.4);
 }
 
-.answer-btn:hover {
-  transform: scale(1.05);
-  background-color: #ffe0b2;
+.pergunta {
+  font-size: 22px;
+  color: #5a0033;
+  margin-bottom: 20px;
 }
 
-.answer-btn.correct {
-  background-color: #a8ffb0;
-}
-
-.answer-btn.wrong {
-  background-color: #ff9ea0;
-}
-
-.next-btn {
-  display: none;
+.opcao {
+  background-color: #ffb3cc;
+  border: 1px solid #ff4d94;
+  color: #5a0033;
   padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 15px;
+  margin: 8px;
+  font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
-  background-color: #ffb3ff;
-  color: white;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s, transform 0.2s;
+  display: block;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.next-btn:hover {
-  background-color: #ff80ff;
+.opcao:hover {
+  background-color: #ff99bb;
+  transform: scale(1.05);
+}
+
+.correta {
+  background-color: #b3ffb3 !important;
+}
+
+.errada {
+  background-color: #ff9999 !important;
+}
+
+.footer {
+  margin-top: 50px;
+  color: #888;
+  font-size: 13px;
+}
+
+#btnRecomecar {
+  background-color: #ff4d94;
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#btnRecomecar:hover {
+  background-color: #e60073;
 }
