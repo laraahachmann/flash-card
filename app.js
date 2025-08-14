@@ -1,65 +1,62 @@
-const cardContainer = document.getElementById('card-container');
-const nextButton = document.getElementById('next-btn');
+let indiceAtual = 0;
+let pontuacao = 0;
 
-let currentQuestionIndex = 0;
+const perguntaEl = document.getElementById("pergunta");
+const opcoesEl = document.getElementById("opcoes");
+const pontuacaoEl = document.getElementById("pontuacao");
+const btnRecomecar = document.getElementById("btnRecomecar");
 
-function startQuiz() {
-  currentQuestionIndex = 0;
-  nextButton.style.display = 'none';
-  showQuestion();
-}
+function carregarFlashcard() {
+  const card = flashcards[indiceAtual];
+  perguntaEl.textContent = card.pergunta;
+  opcoesEl.innerHTML = "";
 
-function showQuestion() {
-  cardContainer.innerHTML = '';
-  const current = perguntas[currentQuestionIndex];
-
-  const card = document.createElement('div');
-  card.classList.add('card');
-
-  const cardInner = document.createElement('div');
-  cardInner.classList.add('card-inner');
-
-  const cardFront = document.createElement('div');
-  cardFront.classList.add('card-front');
-  cardFront.innerHTML = `<h2>${current.pergunta}</h2>`;
-
-  const answersDiv = document.createElement('div');
-  answersDiv.classList.add('answers');
-  current.respostas.forEach(resposta => {
-    const btn = document.createElement('button');
-    btn.classList.add('answer-btn');
-    btn.innerText = resposta.texto;
-    btn.addEventListener('click', () => selectAnswer(resposta, card));
-    answersDiv.appendChild(btn);
+  card.opcoes.forEach(opcao => {
+    const btn = document.createElement("button");
+    btn.textContent = opcao;
+    btn.classList.add("opcao");
+    btn.onclick = () => verificarResposta(opcao, btn);
+    opcoesEl.appendChild(btn);
   });
-  cardFront.appendChild(answersDiv);
-
-  const cardBack = document.createElement('div');
-  cardBack.classList.add('card-back');
-  cardBack.innerHTML = `<h3>Resposta Correta: ${current.respostas.find(r=>r.correta).texto}</h3>`;
-
-  cardInner.appendChild(cardFront);
-  cardInner.appendChild(cardBack);
-  card.appendChild(cardInner);
-  cardContainer.appendChild(card);
 }
 
-function selectAnswer(resposta, card) {
-  card.classList.add('flipped');
-  nextButton.style.display = 'block';
-}
+function verificarResposta(opcao, botao) {
+  const correta = flashcards[indiceAtual].correta;
 
-nextButton.addEventListener('click', () => {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < perguntas.length) {
-    showQuestion();
-    nextButton.style.display = 'none';
+  if (opcao === correta) {
+    botao.classList.add("correta");
+    pontuacao++;
   } else {
-    cardContainer.innerHTML = `<h2>🎉 Quiz Finalizado! 🎉</h2>`;
-    nextButton.innerText = "Recomeçar";
-    nextButton.onclick = startQuiz;
-    nextButton.style.display = 'block';
+    botao.classList.add("errada");
+    [...opcoesEl.children].forEach(b => {
+      if (b.textContent === correta) {
+        b.classList.add("correta");
+      }
+    });
   }
-});
 
-startQuiz();
+  pontuacaoEl.textContent = pontuacao;
+
+  [...opcoesEl.children].forEach(b => b.disabled = true);
+
+  setTimeout(() => {
+    indiceAtual++;
+    if (indiceAtual < flashcards.length) {
+      carregarFlashcard();
+    } else {
+      perguntaEl.textContent = `Quiz finalizado! 🎉 Sua pontuação foi ${pontuacao}/${flashcards.length}`;
+      opcoesEl.innerHTML = "";
+      btnRecomecar.style.display = "inline-block";
+    }
+  }, 1000);
+}
+
+function recomecar() {
+  indiceAtual = 0;
+  pontuacao = 0;
+  pontuacaoEl.textContent = pontuacao;
+  btnRecomecar.style.display = "none";
+  carregarFlashcard();
+}
+
+carregarFlashcard();
