@@ -1,29 +1,27 @@
-const perguntas = [
+const flashcards = [
   {
-    pergunta: "Qual é o menor país do mundo?",
-    respostas: [
-      { texto: "Vaticano", correta: true },
-      { texto: "Mônaco", correta: false },
-      { texto: "Malta", correta: false },
-      { texto: "San Marino", correta: false }
-    ]
+    pergunta: "Qual é a capital da França?",
+    opcoes: ["Paris", "Roma", "Madrid", "Londres"],
+    correta: "Paris"
   },
   {
-    pergunta: "Quem pintou 'A Noite Estrelada'?",
-    respostas: [
-      { texto: "Vincent van Gogh", correta: true },
-      { texto: "Pablo Picasso", correta: false },
-      { texto: "Claude Monet", correta: false },
-      { texto: "Leonardo da Vinci", correta: false }
-    ]
+    pergunta: "Quem pintou a Mona Lisa?",
+    opcoes: ["Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo"],
+    correta: "Leonardo da Vinci"
   },
   {
-    pergunta: "Qual planeta é conhecido como Planeta Vermelho?",
-    respostas: [
-      { texto: "Marte", correta: true },
-      { texto: "Vênus", correta: false },
-      { texto: "Júpiter", correta: false },
-      { texto: "Saturno", correta: false }
-    ]
+    pergunta: "Qual planeta é conhecido como planeta vermelho?",
+    opcoes: ["Marte", "Júpiter", "Saturno", "Vênus"],
+    correta: "Marte"
+  },
+  {
+    pergunta: "Quem foi o primeiro presidente do Brasil?",
+    opcoes: ["Getúlio Vargas", "Deodoro da Fonseca", "Dom Pedro II", "Juscelino Kubitschek"],
+    correta: "Deodoro da Fonseca"
+  },
+  {
+    pergunta: "Qual é o maior oceano do mundo?",
+    opcoes: ["Atlântico", "Índico", "Pacífico", "Ártico"],
+    correta: "Pacífico"
   }
 ];
