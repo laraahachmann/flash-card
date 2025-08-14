@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcards Quiz</title>
+  <meta charset="UTF-8" />
+  <title>Flashcard Quiz 🌸</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Flashcards Quiz</h1>
-    <div id="card-container"></div>
-    <button id="next-btn" class="next-btn">Próxima</button>
+
+  <h1>Flashcard Quiz 🌸</h1>
+  <div class="score">Pontuação: <span id="pontuacao">0</span></div>
+
+  <div class="flashcard" id="flashcard">
+    <div class="pergunta" id="pergunta">Carregando pergunta...</div>
+    <div class="opcoes" id="opcoes"></div>
   </div>
+
+  <button id="btnRecomecar" style="display:none;" onclick="recomecar()">Recomeçar 🔄</button>
+
+  <div class="footer">Feito com 💖 e cor-de-rosa</div>
 
   <script src="perguntas.js"></script>
   <script src="app.js"></script>
